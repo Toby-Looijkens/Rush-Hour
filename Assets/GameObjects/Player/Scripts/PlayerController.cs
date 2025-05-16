@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private float rotationSpeed = 1000f;
+    [SerializeField] private float pushStrength = 40f;
     //[SerializeField] private float deceleration = 5f;
 
     [Header("Components")]
@@ -107,8 +108,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "NPC-Dynamic")
         {
-            Debug.Log("Test");
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce((collision.gameObject.transform.position - gameObject.transform.position).normalized * 80, ForceMode2D.Impulse);
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce((collision.gameObject.transform.position - gameObject.transform.position).normalized * pushStrength, ForceMode2D.Impulse);
         }
     }
 }
