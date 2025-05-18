@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "NPC-Dynamic")
         {
+            GetComponentInChildren<AudioSource>().Play();
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce((collision.gameObject.transform.position - gameObject.transform.position).normalized * pushStrength, ForceMode2D.Impulse);
         }
     }

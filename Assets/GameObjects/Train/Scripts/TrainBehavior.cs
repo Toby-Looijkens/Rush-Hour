@@ -8,7 +8,7 @@ public class TrainBehavior : MonoBehaviour
 
     private float speed = 15f;
 
-    private Vector2 stopPosition = new Vector2(0, -0.4f);
+    private Vector2 stopPosition = new Vector2(0, -0.41f);
     private Vector2 startPosition;
     private bool isAccelerating = false;
     private bool isStopping = true;
@@ -16,7 +16,8 @@ public class TrainBehavior : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3(50, -0.4f);
+        stopPosition = transform.position;
+        transform.position = new Vector3(50, -0.41f);
     }
 
     void Update()
@@ -36,7 +37,7 @@ public class TrainBehavior : MonoBehaviour
         if (transform.position == (Vector3)stopPosition && !hasStopped)
         {
             hasStopped = true;
-            Invoke("OpenDoors", 0.5f);
+            Invoke("OpenDoors", 0.2f);
         }
     }
 
@@ -62,8 +63,8 @@ public class TrainBehavior : MonoBehaviour
 
     public void Depart()
     {
-        stopPosition = new Vector2(-50, -0.4f);
-        transform.position = new Vector2(0.0001f, -0.4f);
+        stopPosition = new Vector2(-50, -0.41f);
+        transform.position = new Vector2(0.0001f, -0.41f);
         isAccelerating = true;
     }
 

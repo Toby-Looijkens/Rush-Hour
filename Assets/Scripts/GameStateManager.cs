@@ -36,7 +36,6 @@ public class GameStateManager : MonoBehaviour
     {
         if (timeUntilDeparture <= 0)
         {
-            FindAnyObjectByType<PlayerController>().gameObject.GetComponent<PlayerInput>().enabled = false;
             isCountingDown = false;
             foreach (TrainBehavior car in trainCars)
             {
@@ -60,11 +59,17 @@ public class GameStateManager : MonoBehaviour
 
     public void TriggerWin()
     {
-        Debug.Log("Test");
+        isCountingDown = false;
+        FindAnyObjectByType<PlayerController>().gameObject.GetComponent<PlayerInput>().enabled = false;
+        foreach (TrainBehavior car in trainCars)
+        {
+            car.Invoke("CloseDoors", 0.2f);
+        }
+
     }
 
     public void TriggerLoss()
     {
-
+        FindAnyObjectByType<PlayerController>().gameObject.GetComponent<PlayerInput>().enabled = false;
     }
 }
