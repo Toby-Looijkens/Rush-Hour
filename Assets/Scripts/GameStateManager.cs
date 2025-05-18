@@ -13,6 +13,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] NPCBehavior[] npcs;
     [SerializeField] UIController controller;
     [SerializeField] TextMeshProUGUI timer;
+    [SerializeField] 
     PlayerController playerController;
     List<Vector2> trainStopLocations;
     
@@ -29,8 +30,22 @@ public class GameStateManager : MonoBehaviour
         {
             npc.GetComponent<CircleCollider2D>().enabled = false;
         }
-        //Seat[] seats = FindObjectsByType<Seat>(FindObjectsSortMode.None);
-        //seats[UnityEngine.Random.Range(0, seats.Length)].SetAsGoal();
+
+
+        Seat[] seats = FindObjectsByType<Seat>(FindObjectsSortMode.None);
+        bool hasTargetBeenSet = false;
+        foreach (Seat seat in seats)
+        {
+            if (seat.isTarget)
+            {
+                hasTargetBeenSet |= true;
+            }
+        }
+
+        if (!hasTargetBeenSet) 
+        {
+            seats[UnityEngine.Random.Range(0, seats.Length)].SetAsGoal();
+        }
     }
 
     void Update()

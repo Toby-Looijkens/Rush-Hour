@@ -104,4 +104,12 @@ public class TrainBehavior : MonoBehaviour
             FindAnyObjectByType<GameStateManager>().TrainArrived();
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) 
+        {
+            FindFirstObjectByType<GameStateManager>().TriggerLoss();
+            Destroy(collision);
+        }
+    }
 }

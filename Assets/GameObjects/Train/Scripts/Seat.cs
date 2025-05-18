@@ -3,16 +3,16 @@ using UnityEngine;
 public class Seat : MonoBehaviour
 {
     private GameStateManager _gameStateManager;
-    private GameObject child;
+    [SerializeField] private GameObject child;
     private bool isOccupied = true;
     [SerializeField] private Sprite[] people;
     [SerializeField] Sprite sprite;
     [SerializeField] Color color;
-    [SerializeField] bool isTarget = false;
+    [SerializeField] public bool isTarget = false;
 
     private void Start()
     {
-        child = GetComponentsInChildren<SpriteRenderer>()[1].gameObject;
+        //child = GetComponentsInChildren<SpriteRenderer>()[1].gameObject;
         child.GetComponent<SpriteRenderer>().sprite = people[UnityEngine.Random.Range(0, people.Length)];
         if (isTarget)
         {
@@ -34,13 +34,14 @@ public class Seat : MonoBehaviour
         isTarget = true;
         _gameStateManager = (GameStateManager)FindAnyObjectByType(typeof(GameStateManager));
         GetComponent<BoxCollider2D>().enabled = false;
+        //Debug.Log(child);
         child.GetComponent<SpriteRenderer>().sprite = sprite;
         child.GetComponent<SpriteRenderer>().color = color;        
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && isTarget)
         {
             _gameStateManager.TriggerWin();
             collision.gameObject.transform.SetParent(gameObject.transform);

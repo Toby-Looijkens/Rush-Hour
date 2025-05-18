@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea70cdad6b83a184f949f500985911bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  child: {fileID: 4736253548625586311}
   people:
   - {fileID: -2256948484998397059, guid: eea0a1aefe44ad24987cdcaca00cdc7e, type: 3}
   - {fileID: 8165316572449679646, guid: 07b91dfe636ff4b4a908148577461882, type: 3}
