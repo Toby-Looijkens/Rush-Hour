@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class TrainBehavior : MonoBehaviour
 {
-    [SerializeField] GameObject trainRoof;
     [SerializeField] private float Acceleration = 2f;
+    
+    private TrainCarBehavior[] trainCars;
 
     private float speed = 15f;
 
@@ -13,11 +14,13 @@ public class TrainBehavior : MonoBehaviour
     private bool isAccelerating = false;
     private bool isStopping = true;
     private bool hasStopped = false;
+    private bool soundTriggered = false;
 
     void Start()
     {
         stopPosition = transform.position;
-        transform.position = new Vector3(50, -0.41f);
+        transform.position = new Vector3(200, -0.41f);
+        trainCars = FindObjectsByType<TrainCarBehavior>(FindObjectsSortMode.None);
     }
 
     void Update()
@@ -37,34 +40,32 @@ public class TrainBehavior : MonoBehaviour
         if (transform.position == (Vector3)stopPosition && !hasStopped)
         {
             hasStopped = true;
-            Invoke("OpenDoors", 0.2f);
+            foreach (TrainCarBehavior car in trainCars)
+            {
+                car.Invoke("OpenDoors", 0.2f);
+            }
         }
     }
 
     public void OpenDoors()
     {
-        Doors[] doors = FindObjectsByType<Doors>(FindObjectsSortMode.None);
-        foreach (Doors door in doors)
+        foreach (TrainCarBehavior car in trainCars)
         {
-            door.OpenDoors();
+            car.OpenDoors();
         }
     }
 
     public void CloseDoors()
     {
-        Doors[] doors = FindObjectsByType<Doors>(FindObjectsSortMode.None);
-        foreach (Doors door in doors)
+        foreach (TrainCarBehavior car in trainCars)
         {
-            door.CloseDoors();
+            car.CloseDoors();
         }
-        Invoke("Depart", 0.5f);
-        //trainRoof.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void Depart()
     {
         stopPosition = new Vector2(-50, -0.41f);
-        transform.position = new Vector2(0.0001f, -0.41f);
         isAccelerating = true;
     }
 
@@ -88,6 +89,11 @@ public class TrainBehavior : MonoBehaviour
             if ((transform.position - (Vector3)stopPosition).magnitude < 15)
             {
                 speed = (transform.position - (Vector3)stopPosition).magnitude;
+                if (!soundTriggered)
+                {
+                    //soundTriggered = true;
+                    //GetComponent<AudioSource>().Play();
+                }
             }
         }
         else
@@ -97,18 +103,5 @@ public class TrainBehavior : MonoBehaviour
             isStopping = false;
             FindAnyObjectByType<GameStateManager>().TrainArrived();
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            trainRoof.GetComponent<SpriteRenderer>().enabled = false;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player") trainRoof.GetComponent<SpriteRenderer>().enabled = true;
     }
 }

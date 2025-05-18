@@ -8,11 +8,16 @@ public class Seat : MonoBehaviour
     [SerializeField] private Sprite[] people;
     [SerializeField] Sprite sprite;
     [SerializeField] Color color;
+    [SerializeField] bool isTarget = false;
 
     private void Start()
     {
         child = GetComponentsInChildren<SpriteRenderer>()[1].gameObject;
         child.GetComponent<SpriteRenderer>().sprite = people[UnityEngine.Random.Range(0, people.Length)];
+        if (isTarget)
+        {
+            SetAsGoal();
+        }
     }
 
     private void Update()
@@ -26,6 +31,7 @@ public class Seat : MonoBehaviour
     public void SetAsGoal()
     {
         isOccupied = false;
+        isTarget = true;
         _gameStateManager = (GameStateManager)FindAnyObjectByType(typeof(GameStateManager));
         GetComponent<BoxCollider2D>().enabled = false;
         child.GetComponent<SpriteRenderer>().sprite = sprite;
@@ -41,10 +47,10 @@ public class Seat : MonoBehaviour
             child.GetComponent<SpriteRenderer>().enabled = false;
         }
 
-        if (collision.gameObject.CompareTag("NPC-Dynamic")) 
-        {
-            _gameStateManager.TriggerLoss();
-        }
+        //if (collision.gameObject.CompareTag("NPC-Dynamic")) 
+        //{
+        //    _gameStateManager.TriggerLoss();
+        //}
     }
 
 

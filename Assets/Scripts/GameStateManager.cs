@@ -9,8 +9,11 @@ public class GameStateManager : MonoBehaviour
 {
     [SerializeField] private float timeUntilDeparture = 30f;
 
-    TrainBehavior[] trainCars;
-
+    TrainBehavior train;
+    [SerializeField] NPCBehavior[] npcs;
+    [SerializeField] UIController controller;
+    [SerializeField] TextMeshProUGUI timer;
+    PlayerController playerController;
     List<Vector2> trainStopLocations;
     
 
@@ -18,10 +21,16 @@ public class GameStateManager : MonoBehaviour
     private bool isCountingDown = false;
 
     void Start()
-    {  
-        trainCars = FindObjectsByType<TrainBehavior>(FindObjectsSortMode.None);
-        Seat[] seats = FindObjectsByType<Seat>(FindObjectsSortMode.None);
-        seats[UnityEngine.Random.Range(0, seats.Length)].SetAsGoal();
+    {
+        train = FindAnyObjectByType<TrainBehavior>();
+        playerController = FindAnyObjectByType<PlayerController>();
+
+        foreach (NPCBehavior npc in npcs)
+        {
+            npc.GetComponent<CircleCollider2D>().enabled = false;
+        }
+        //Seat[] seats = FindObjectsByType<Seat>(FindObjectsSortMode.None);
+        //seats[UnityEngine.Random.Range(0, seats.Length)].SetAsGoal();
     }
 
     void Update()
@@ -36,40 +45,55 @@ public class GameStateManager : MonoBehaviour
     {
         if (timeUntilDeparture <= 0)
         {
-            isCountingDown = false;
-            foreach (TrainBehavior car in trainCars)
-            {
-                car.Invoke("CloseDoors", 0.2f);
-            }
+            TriggerLoss();
         } else
         {
             timeUntilDeparture -= Time.deltaTime;
+            timer.text = Mathf.Round(timeUntilDeparture).ToString();
         }
+    }
+
+    private void FinishGame()
+    {
+        timer.text = "";
+        isCountingDown = false;
+        DestroyRigidBodies();
+        playerController.transform.SetParent(train.transform, true);
+        FindAnyObjectByType<PlayerController>().gameObject.GetComponent<PlayerInput>().enabled = false;
+    }
+
+    private void DestroyRigidBodies()
+    {
+        foreach (NPCBehavior npc in npcs)
+        {
+            Destroy(npc.GetComponent<CircleCollider2D>());
+        }
+
+        Destroy(playerController.GetComponent<Collider2D>());
     }
 
     public void TrainArrived()
     {
         isCountingDown = true;
-
-        foreach (TrainBehavior car in trainCars)
+        foreach (NPCBehavior npc in npcs)
         {
-            car.Invoke("OpenDoors", 0.2f);
+            npc.GetComponent<CircleCollider2D>().enabled = true;
         }
+
+        train.Invoke("OpenDoors", 0.2f);
     }
 
     public void TriggerWin()
     {
-        isCountingDown = false;
-        FindAnyObjectByType<PlayerController>().gameObject.GetComponent<PlayerInput>().enabled = false;
-        foreach (TrainBehavior car in trainCars)
-        {
-            car.Invoke("CloseDoors", 0.2f);
-        }
-
+        FinishGame();
+        train.Invoke("CloseDoors", 0.2f);
+        controller.Invoke("OpenWinScreen", 5);
     }
 
     public void TriggerLoss()
     {
-        FindAnyObjectByType<PlayerController>().gameObject.GetComponent<PlayerInput>().enabled = false;
+        FinishGame();
+        train.Invoke("CloseDoors", 0.2f);
+        controller.Invoke("OpenLossScreen", 5);
     }
 }

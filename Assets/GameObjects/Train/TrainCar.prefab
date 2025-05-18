@@ -775,8 +775,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8513244903705839939}
-  - component: {fileID: 1443147934616901477}
   - component: {fileID: 6894752013053632074}
+  - component: {fileID: 467571378168224390}
   m_Layer: 0
   m_Name: TrainCar
   m_TagString: Untagged
@@ -830,20 +830,6 @@ Transform:
   - {fileID: 672227564981826438}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1443147934616901477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4862361578798878206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 338ba6d16224c9d43915193724f19c1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trainRoof: {fileID: 1225742729110091929}
-  Acceleration: 2
 --- !u!61 &6894752013053632074
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -890,6 +876,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 8, y: 2.9}
   m_EdgeRadius: 0
+--- !u!114 &467571378168224390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862361578798878206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b762dcdce73597049b19114dcaa1729c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainRoof: {fileID: 1225742729110091929}
 --- !u!1 &6917399157631381681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,6 +2021,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Doors
       objectReference: {fileID: 0}
+    - target: {fileID: 6328920432517163110, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
+      propertyPath: isEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328920432517163110, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7985557311702057861, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3
@@ -2083,6 +2090,14 @@ PrefabInstance:
     - target: {fileID: 4145539777920120057, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
       propertyPath: m_Name
       value: Doors
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328920432517163110, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
+      propertyPath: isEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328920432517163110, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985557311702057861, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2396,7 +2411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6328920432517163110, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985557311702057861, guid: 2dc1efc609f45f3488e1a6d504be8552, type: 3}
       propertyPath: m_LocalPosition.x

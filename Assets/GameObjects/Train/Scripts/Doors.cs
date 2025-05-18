@@ -6,6 +6,7 @@ public class Doors : MonoBehaviour
     [SerializeField] GameObject rightDoor;
     [SerializeField] float distanceToTravel = 0.025f;
     [SerializeField] float doorSpeed = 2f;
+    [SerializeField] bool isEnabled = true;
 
     private Vector2 leftDoorClosed;
     private Vector2 rightDoorClosed;
@@ -57,11 +58,17 @@ public class Doors : MonoBehaviour
 
     public void OpenDoors()
     {
-        isOpening = true;
+        if(isEnabled)
+        {
+            isOpening = true;
+        }
     }
 
     public void CloseDoors()
     {
-        isClosing = true;
+        if(isEnabled) 
+        {
+            isClosing = true;
+        }
     }
 }

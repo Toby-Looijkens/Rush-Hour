@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7143566218038162704}
@@ -197,6 +197,7 @@ MonoBehaviour:
   - {fileID: -5414498893569429425, guid: b7815930b117da641a4716c38cc8a36b, type: 3}
   sprite: {fileID: -3457448024721243918, guid: 9805bd4be0e75f94997d4cdcf9ffb0d4, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
+  isTarget: 0
 --- !u!61 &1856759769711798751
 BoxCollider2D:
   m_ObjectHideFlags: 0

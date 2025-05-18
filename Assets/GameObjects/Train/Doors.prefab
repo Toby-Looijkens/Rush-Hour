@@ -184,6 +184,7 @@ MonoBehaviour:
   rightDoor: {fileID: 5269741949859663406}
   distanceToTravel: 0.3
   doorSpeed: 2
+  isEnabled: 1
   progress: 0
 --- !u!1 &5269741949859663406
 GameObject:
